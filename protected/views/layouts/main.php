@@ -15,8 +15,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="language" content="en"/>
 
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/front.css">
+    <link rel="stylesheet" type="text/css" href="<?= Yii::app()->baseUrl?>/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= Yii::app()->baseUrl?>/css/front.css">
 </head>
 
 <body>
@@ -25,8 +25,8 @@
 </div>
 
 <?php Yii::app()->getClientScript()->registerCoreScript('jquery'); ?>
-<script src="/js/jquery.scrollto.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/frontend.js"></script>
+<script src="<?= Yii::app()->baseUrl?>/js/jquery.scrollto.js"></script>
+<script src="<?= Yii::app()->baseUrl?>/js/bootstrap.min.js"></script>
+<script src="<?= Yii::app()->baseUrl?>/js/frontend.js"></script>
 </body>
 </html>
