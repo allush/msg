@@ -1,0 +1,40 @@
+body {
+    background-color: #f8f3f0;
+    font-size: 14px;
+    color: #4c4743;
+}
+
+#dialog {
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.message {
+    margin-bottom: 6px;
+}
+
+.message .time {
+    font-size: 11px;
+}
+
+.message .text {
+    display: inline-block;
+    padding: 2px 12px;
+    border-radius: 3px;
+    background-color: #e0efca;
+}
+
+.message.own {
+    text-align: right;
+}
+
+.message.own .text {
+    background-color: #cadfef;
+}
+#Dialog_text{
+    max-width: 100%;
+}
