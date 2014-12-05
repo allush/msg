@@ -32,10 +32,16 @@
 
         <div class="form-group">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <?= CHtml::link('Выйти', array('logout'), array('class' => 'btn  btn-danger')); ?>
                 </div>
-                <div class="col-md-6 text-right">
+                <div class="col-md-4 text-center">
+                    <small>
+                        Был(а) последний раз:
+                        <br><strong><?= $model->receiver->lastLogin ? date('d.m.Y H:i:s', $model->receiver->lastLogin) : '?'; ?></strong>
+                    </small>
+                </div>
+                <div class="col-md-4 text-right">
                     <button type="submit" name="send" class="btn btn-default">
                         <i class="glyphicon glyphicon-send"></i> Отправить
                     </button>

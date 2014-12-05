@@ -11,6 +11,9 @@ class SiteController extends FrontController
         $dialogs = Dialog::model()->findAll(array('limit' => 10, 'order' => 'createdOn DESC'));
         $dialogs = array_reverse($dialogs);
 
+        $model->sender->lastLogin = time();
+        $model->sender->save();
+
         if (Yii::app()->request->isAjaxRequest) {
             echo $this->renderPartial('_dialogs', array('dialogs' => $dialogs), true);
             Yii::app()->end();
