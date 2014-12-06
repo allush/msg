@@ -37,7 +37,7 @@ class LoginForm extends CFormModel
             return false;
         }
 
-        Yii::app()->user->login($this->_identity, 30 * 24 * 24 * 60);
+        Yii::app()->user->login($this->_identity);
 
         return true;
     }
