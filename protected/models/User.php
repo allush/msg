@@ -71,7 +71,7 @@ class User extends CActiveRecord
 
     public function textStatus()
     {
-        if (!$this->lastLogin or ((time() - $this->lastLogin) > 0)) {
+        if (!$this->lastLogin or ((time() - $this->lastLogin) > 120)) {
             return '<span class="label label-default">Offline</span> <span class="text-muted small">(' . date('d.m.Y H:i:s', $this->lastLogin) . ')</span>';
         }
 
