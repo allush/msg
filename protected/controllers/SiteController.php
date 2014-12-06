@@ -8,7 +8,7 @@ class SiteController extends FrontController
         $model->sender_id = Yii::app()->user->id;
         $model->receiver_id = $model->sender_id == 1 ? 2 : 1;
 
-        $dialogs = Dialog::model()->findAll(array('limit' => 10, 'order' => 'createdOn DESC'));
+        $dialogs = Dialog::model()->findAll(array('limit' => 20, 'order' => 'createdOn DESC'));
         $dialogs = array_reverse($dialogs);
 
         $model->sender->lastLogin = time();
