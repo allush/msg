@@ -44,7 +44,6 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#dialog').scrollTo(0, 9999);
 
         $('#Dialog_text').keypress(function (event) {
             if (event.which == 13) {
@@ -56,6 +55,26 @@
             sendMessage($(this));
             return false;
         });
+
+        dialogScroll();
+
+        function dialogScroll() {
+            var dialog = $('#dialog');
+            var dialogHeight = 0;
+            dialog.find('.message').each(function () {
+                dialogHeight += $(this).outerHeight();
+            });
+            dialogHeight += (dialog.outerHeight() - dialog.height());
+
+            dialog.scrollTo(0, dialogHeight, {
+                animation: {
+                    complete: function () {
+                    }
+                }
+            });
+        }
+
+        var updateDialogLocked = false;
 
         function sendMessage(form) {
             var dialogText = $('#Dialog_text');
@@ -71,6 +90,10 @@
                 },
                 beforeSend: function () {
                     $('#Dialog_text').attr('disabled', 'disabled');
+                    updateDialogLocked = true;
+                },
+                error: function () {
+                    updateDialogLocked = false;
                 },
                 success: function (data) {
                     dialogText.removeAttr('disabled');
@@ -79,25 +102,30 @@
                         updateDialog();
                     }
                     dialogText.focus();
+                    updateDialogLocked = false;
                 }
             });
         }
 
         function updateDialog() {
+            if (updateDialogLocked) {
+                return;
+            }
+
             $.ajax({
                 url: 'site/index',
                 type: 'get',
                 dataType: 'json',
                 success: function (data) {
                     $('#dialog').html(data.dialog);
-                    $('#dialog').scrollTo(0, 9999);
                     $('#status').html(data.status);
+                    dialogScroll();
                 }
             });
         }
 
         setInterval(function () {
-            updateDialog()
+            updateDialog();
         }, 5000);
     });
 </script>
