@@ -44,6 +44,7 @@
 
 <script type="text/javascript">
     $(function () {
+        $('#dialog').scrollTo(0, 9999);
 
         $('#Dialog_text').keypress(function (event) {
             if (event.which == 13) {
@@ -89,6 +90,7 @@
                 dataType: 'json',
                 success: function (data) {
                     $('#dialog').html(data.dialog);
+                    $('#dialog').scrollTo(0, 9999);
                     $('#status').html(data.status);
                 }
             });
