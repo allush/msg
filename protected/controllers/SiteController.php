@@ -15,7 +15,11 @@ class SiteController extends FrontController
         $model->sender->save();
 
         if (Yii::app()->request->isAjaxRequest) {
-            echo $this->renderPartial('_dialogs', array('dialogs' => $dialogs), true);
+            $data = array(
+                'dialog' => $this->renderPartial('_dialogs', array('dialogs' => $dialogs), true),
+                'status' => $model->receiver->textStatus(),
+            );
+            echo json_encode($data);
             Yii::app()->end();
         }
 

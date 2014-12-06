@@ -21,7 +21,7 @@ class User extends CActiveRecord
         return array(
             array('login, password', 'required'),
             array('login, password', 'length', 'max' => 45),
-            array('lastLogin', 'numerical','integerOnly' => true)
+            array('lastLogin', 'numerical', 'integerOnly' => true)
         );
     }
 
@@ -67,5 +67,15 @@ class User extends CActiveRecord
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    public function textStatus()
+    {
+        if (!$this->lastLogin or ((time() - $this->lastLogin) > 0)) {
+            return '<span class="label label-default">Offline</span> <span class="text-muted small">(' . date('d.m.Y H:i:s', $this->lastLogin) . ')</span>';
+        }
+
+        // если активность была менее 2х минут назад
+        return '<span class="label label-success">Online</span>';
     }
 }

@@ -8,14 +8,17 @@
 ?>
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
-
-        <br>
-
+        <div class="text-right small" style="margin: 8px 0;">
+            <strong>(<?= $model->sender->login; ?>
+                )</strong> <?= CHtml::link('Выйти', array('logout'), array('class' => '')); ?>
+        </div>
         <div id="dialog">
             <?= $this->renderPartial('_dialogs', array('dialogs' => $dialogs)); ?>
         </div>
 
-        <hr>
+        <div id="status" class="text-center" style="margin: 8px 0;">
+            <?= $model->receiver->textStatus(); ?>
+        </div>
 
         <?php $form = $this->beginWidget('CActiveForm', array(
             'id' => 'new-message-form',
@@ -31,22 +34,9 @@
         </div>
 
         <div class="form-group">
-            <div class="row">
-                <div class="col-md-4">
-                    <?= CHtml::link('Выйти', array('logout'), array('class' => 'btn  btn-danger')); ?>
-                </div>
-                <div class="col-md-4 text-center">
-                    <small>
-                        Был(а) последний раз:
-                        <br><strong><?= $model->receiver->lastLogin ? date('d.m.Y H:i:s', $model->receiver->lastLogin) : '?'; ?></strong>
-                    </small>
-                </div>
-                <div class="col-md-4 text-right">
-                    <button type="submit" name="send" class="btn btn-default">
-                        <i class="glyphicon glyphicon-send"></i> Отправить
-                    </button>
-                </div>
-            </div>
+            <button type="submit" name="send" class="btn btn-default">
+                Отправить
+            </button>
         </div>
         <?php $this->endWidget(); ?>
     </div>
@@ -54,46 +44,58 @@
 
 <script type="text/javascript">
     $(function () {
+
+        $('#Dialog_text').keypress(function (event) {
+            if (event.which == 13) {
+                sendMessage($(event.target).parents('#new-message-form'));
+            }
+        });
+
         $('#new-message-form').submit(function () {
-            var form = $(this);
+            sendMessage($(this));
+            return false;
+        });
+
+        function sendMessage(form) {
+            var dialogText = $('#Dialog_text');
             $.ajax({
                 url: form.attr('action'),
                 type: 'post',
                 dataType: 'json',
                 data: {
                     YII_CSRF_TOKEN: '<?= Yii::app()->request->csrfToken; ?>',
-                    'Dialog[text]': $('#Dialog_text').val(),
+                    'Dialog[text]': dialogText.val(),
                     'Dialog[receiver_id]': $('#Dialog_receiver_id').val(),
                     'Dialog[sender_id]': $('#Dialog_sender_id').val()
-
                 },
                 beforeSend: function () {
                     $('#Dialog_text').attr('disabled', 'disabled');
                 },
                 success: function (data) {
-                    $('#Dialog_text').removeAttr('disabled');
+                    dialogText.removeAttr('disabled');
                     if (data.save == true) {
-                        $('#Dialog_text').val('');
+                        dialogText.val('');
                         updateDialog();
                     }
+                    dialogText.focus();
                 }
             });
-
-            return false;
-        });
+        }
 
         function updateDialog() {
             $.ajax({
                 url: 'site/index',
                 type: 'get',
+                dataType: 'json',
                 success: function (data) {
-                    $('#dialog').html(data);
+                    $('#dialog').html(data.dialog);
+                    $('#status').html(data.status);
                 }
             });
         }
 
         setInterval(function () {
             updateDialog()
-        }, 10000);
+        }, 5000);
     });
 </script>
