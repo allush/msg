@@ -96,13 +96,13 @@
                     updateDialogLocked = false;
                 },
                 success: function (data) {
+                    updateDialogLocked = false;
                     dialogText.removeAttr('disabled');
                     if (data.save == true) {
                         dialogText.val('');
                         updateDialog();
                     }
                     dialogText.focus();
-                    updateDialogLocked = false;
                 }
             });
         }
@@ -119,7 +119,6 @@
                 success: function (data) {
                     $('#dialog').html(data.dialog);
                     $('#status').html(data.status);
-                    dialogScroll();
                 }
             });
         }
