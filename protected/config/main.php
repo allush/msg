@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'vip',
+    'name' => 'msg',
     'defaultController' => 'site',
 
     'preload' => array('log'),
@@ -20,7 +20,7 @@ return array(
     'modules' => array(
         'gii' => array(
             'class' => 'system.gii.GiiModule',
-            'password' => 'vip',
+            'password' => 'msg',
             'ipFilters' => array('127.0.0.1', '::1'),
         ),
     ),

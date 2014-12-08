@@ -8,8 +8,8 @@
 <html lang="ru">
 
 <head>
-    <title>vip</title>
-    <meta name="description" content="vip">
+    <title>msg</title>
+    <meta name="description" content="msg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>

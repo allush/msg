@@ -13,7 +13,7 @@
 
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
-    <link rel='stylesheet' href='/css/bootstrap.min.css' type='text/css'>
+    <link rel='stylesheet' href='<?= Yii::app()->baseUrl?>/css/bootstrap.min.css' type='text/css'>
 </head>
 
 <body>
@@ -26,5 +26,5 @@
 </div>
 </body>
 
-<script type='text/javascript' src='/js/bootstrap.min.js'></script>
+<script type='text/javascript' src='<?= Yii::app()->baseUrl?>/js/bootstrap.min.js'></script>
 </html>
