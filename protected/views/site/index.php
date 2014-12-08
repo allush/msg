@@ -44,6 +44,28 @@
 
 <script type="text/javascript">
     $(function () {
+        $(window).on('beforeunload', function () {
+            var exit = false;
+            var wait = false;
+            var i = 0;
+            while (!exit) {
+                console.log(i++);
+                if (wait) {
+                    continue;
+                }
+                $.ajax({
+                    url: 'site/logout',
+                    type: 'get',
+                    async: false,
+                    beforeSend: function () {
+                        exit = true;
+                    },
+                    complete: function () {
+                        exit = true;
+                    }
+                });
+            }
+        });
 
         $('#Dialog_text').keypress(function (event) {
             if (event.which == 13) {
