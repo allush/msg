@@ -56,7 +56,7 @@
                 $.ajax({
                     url: 'site/logout',
                     type: 'get',
-                    async: false,m
+                    async: false,
                     beforeSend: function () {
                         exit = true;
                     },
