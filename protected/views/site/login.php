@@ -30,7 +30,7 @@
 
 <div class="form-group">
     <button type="submit" class="btn btn-default form-control">
-        <i class='glyphicon glyphicon-log-in text-success'></i>&nbsp;&nbsp;Войти
+        <i class='glyphicon glyphicon-log-in text-success'></i>&nbsp;&nbsp;Да, я этого хочу!
     </button>
 </div>
 
