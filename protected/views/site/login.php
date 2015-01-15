@@ -12,6 +12,10 @@
     'focus' => array($model, 'login'),
 )); ?>
 
+<div style="text-align: center">
+    <p style="font-size: 18px;" class="label label-success">С возвращением :)</p>
+</div>
+<br>
 <div class="form-group">
     <?php echo $form->labelEx($model, 'login'); ?>
     <?php echo $form->textField($model, 'login', array('class' => 'form-control', 'autocomplete' => 'off')); ?>
