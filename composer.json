@@ -1,5 +1,15 @@
 {
   "require": {
     "yiisoft/yii": "1.1.15"
+  },
+  "extra": {
+    "yii\\composer\\Installer::postCreateProject": {
+      "setPermission": [
+        {
+          "protected/runtime": "0777",
+          "assets": "0777"
+        }
+      ]
+    }
   }
 }
