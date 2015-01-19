@@ -44,29 +44,6 @@
 
 <script type="text/javascript">
     $(function () {
-        $(window).on('beforeunload', function () {
-            var exit = false;
-            var wait = false;
-            var i = 0;
-            while (!exit) {
-                console.log(i++);
-                if (wait) {
-                    continue;
-                }
-                $.ajax({
-                    url: 'site/logout',
-                    type: 'get',
-                    async: false,
-                    beforeSend: function () {
-                        exit = true;
-                    },
-                    complete: function () {
-                        exit = true;
-                    }
-                });
-            }
-        });
-
         $('#Dialog_text').keypress(function (event) {
             if (event.which == 13) {
                 sendMessage($(event.target).parents('#new-message-form'));
@@ -96,8 +73,6 @@
             });
         }
 
-        var updateDialogLocked = false;
-
         function sendMessage(form) {
             var dialogText = $('#Dialog_text');
             $.ajax({
@@ -112,17 +87,11 @@
                 },
                 beforeSend: function () {
                     $('#Dialog_text').attr('disabled', 'disabled');
-                    updateDialogLocked = true;
-                },
-                error: function () {
-                    updateDialogLocked = false;
                 },
                 success: function (data) {
-                    updateDialogLocked = false;
                     dialogText.removeAttr('disabled');
                     if (data.save == true) {
                         dialogText.val('');
-                        updateDialog();
                     }
                     dialogText.focus();
                 }
@@ -130,10 +99,6 @@
         }
 
         function updateDialog() {
-            if (updateDialogLocked) {
-                return;
-            }
-
             $.ajax({
                 url: 'site/index',
                 type: 'get',
@@ -141,12 +106,15 @@
                 success: function (data) {
                     $('#dialog').html(data.dialog);
                     $('#status').html(data.status);
+                },
+                complete: function(){
+                    setTimeout(function () {
+                        updateDialog();
+                    }, 2000);
                 }
             });
         }
 
-        setInterval(function () {
-            updateDialog();
-        }, 5000);
+        updateDialog();
     });
 </script>
